@@ -5,31 +5,31 @@
 .card-bg-mist,
 .card-bg-fog,
 .card-bg-haze {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
 
 .card-bg-thunderstorm,
 .card-bg-storm {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
 
 .card-bg-snow,
 .card-bg-snowy {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
 
 .card-bg-rain,
 .card-bg-rainy,
 .card-bg-drizzle {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
 
 .card-bg-clouds,
 .card-bg-cloudy {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
 
 .card-bg-clear,
 .card-bg-sunny {
-  @apply bg-black/20 border-black/0;
+  @apply bg-black/50 border-black/0;
 }
