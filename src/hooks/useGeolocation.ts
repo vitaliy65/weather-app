@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { WeatherDisplayData, WeatherForecast } from "@/types/apiTypes";
-import { config } from "@/lib/config";
+import { config } from "@/config/appConfig";
 import { httpClient } from "@/lib/httpClient";
 import { convertData } from "@/lib/weatherDataConvertor";
 
