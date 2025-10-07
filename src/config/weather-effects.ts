@@ -1,4 +1,4 @@
-import type { WeatherEffectConfig, Particle } from "@/types/weather-particles";
+import type { WeatherEffectConfig } from "@/types/weather-particles";
 
 export const weatherEffects: Record<string, WeatherEffectConfig> = {
   rain: {
@@ -52,7 +52,6 @@ export const weatherEffects: Record<string, WeatherEffectConfig> = {
       ctx.restore();
     },
   },
-  // Для новых погодных эффектов просто добавьте новый объект!
   default: {
     count: 0,
     size: 0,
