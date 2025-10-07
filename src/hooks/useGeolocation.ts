@@ -23,50 +23,39 @@ export function useGeolocation() {
   });
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setState({
-        latitude: null,
-        longitude: null,
-        error: "Geolocation is not supported by your browser",
-        loading: false,
-      });
-      return;
-    }
-
-    const onSuccess = (position: GeolocationPosition) => {
-      setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        error: null,
-        loading: false,
-      });
+    const getLocationByIP = async () => {
+      try {
+        const response = await fetch("https://ipapi.co/json/");
+        const data = await response.json();
+        setState({
+          latitude: data.latitude,
+          longitude: data.longitude,
+          error: null,
+          loading: false,
+        });
+      } catch (err) {
+        setState({
+          latitude: null,
+          longitude: null,
+          error: "Unable to determine location",
+          loading: false,
+        });
+      }
     };
 
-    const onError = (error: GeolocationPositionError) => {
-      setState({
-        latitude: null,
-        longitude: null,
-        error: error.message,
-        loading: false,
-      });
-    };
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    });
+    getLocationByIP();
   }, []);
 
   const { data, isPending, error } = useQuery<WeatherDisplayData>({
     queryKey: ["weather", state.latitude, state.longitude],
     queryFn: async () => {
-      const coordinates = { lat: state.latitude, lon: state.longitude };
-      return await httpClient<WeatherForecast>(
-        `${config.data_url}forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${config.api_key}`
-      ).then((res) => convertData(res));
+      const { latitude, longitude } = state;
+      const res = await httpClient<WeatherForecast>(
+        `${config.data_url}forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${config.api_key}`
+      );
+      return convertData(res);
     },
-    enabled: state.latitude !== null && state.longitude !== null,
+    enabled: !!state.latitude && !!state.longitude,
   });
 
   return {
